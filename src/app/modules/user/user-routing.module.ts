@@ -3,37 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from '../authentication/layouts/main-layout/main-layout.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
+import {
+  AngularFireAuthGuard,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo
+} from '@angular/fire/compat/auth-guard';
+import { UserGuardGuard } from './guards/user-guard.guard';
+const redirectLoggedInToDashboard = () => redirectLoggedInTo(['']);  
+
+
 const routes: Routes = [
- /*{
-    path: '', // localhost:4200/hoja-de-vida
-    component: MainLayoutComponent,
-    children: [*/
-      {
-        path: 'p',
-        component: UserProfileComponent,
-      },
-      /*{
-        path: 'profile', // localhost:4200/hoja-de-vida/experiencia-laboral
-        component: ProfileComponent,
-      },*/
-    //],
-  //},
-  //{
-   // path: '', // localhost:4200/hoja-de-vida
-   // component: MainLayoutComponent,
-    //children: [
-      //{
-       
-      
-      //path: 'profile',
-        //component: UserProfileComponent,
-      //}
-    //],
-  //},
-  /*{
-    path: 'profile',
+  {
+    path: '',
     component: UserProfileComponent,
-  },*/
+    //data: { authGuardPipe: redirectLoggedInToDashboard },
+    //canActivate: [UserGuardGuard],
+
+}
 ];
 
 @NgModule({

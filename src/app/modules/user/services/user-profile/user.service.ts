@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IUsers } from 'src/app/modules/authentication/interfaces/users.interface';
+import { NewUserModel } from 'src/app/modules/authentication/models/new-user.model';
+import { TokenModel } from 'src/app/modules/authentication/models/sig-in-token.model';
+import { SignInModel } from 'src/app/modules/authentication/models/sign-in.model';
 import { INewTransfers } from 'src/app/modules/transfer/interfaces/transfers.model';
 import { getUserModel } from 'src/app/modules/user/models/get-user-model';
-import { INewUser } from '../../interfaces/new-user.interface';
-import { IUsers } from '../../interfaces/users.interface';
-import { NewUserModel } from '../../models/new-user.model';
-import { TokenModel } from '../../models/sig-in-token.model';
-import { SignInModel } from '../../models/sign-in.model';
+import { INewUser } from '../../../authentication/interfaces/new-user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +16,11 @@ export class UserService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  /*createUser(user: NewUserModel): Observable<INewUser> {
-    console.log('USER ', user)
-    return this.httpClient.post<INewUser>(
-      '/api/security/register',
-      user
+  deleteUser(id: string): Observable<boolean> {
+    return this.httpClient.delete<boolean>(
+      `/api/customer/${id}`,
     );
-  }*/
+  }
 
   createUser(user: NewUserModel): Observable<TokenModel> {
     console.log('USER ', user)
@@ -31,6 +29,13 @@ export class UserService {
       user
     );
     return res
+  }
+
+  updateUser(user: NewUserModel): Observable<TokenModel>{
+    return this.httpClient.put<TokenModel>(
+      `/api/customer/${user.id}`,
+      user
+    )
   }
 
   signIn(user: SignInModel): Observable<TokenModel>{
@@ -49,4 +54,11 @@ export class UserService {
   getAll(): Observable<IUsers> {
     return this.httpClient.get<IUsers>('/api/customer');
   }
+
+  withdrawDeposit(id: string, amount: number) {
+    return this.httpClient.post(
+      `/api/account/balance/remove/${id}?amount=${amount}`,
+      {}
+    )
 }
+  }

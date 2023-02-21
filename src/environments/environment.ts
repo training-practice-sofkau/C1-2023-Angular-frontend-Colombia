@@ -3,6 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  firebase: {
+    projectId: 'microbanco-angular',
+    appId: '1:585911593359:web:ad693faeb11940fd4dc3fa',
+    storageBucket: 'microbanco-angular.appspot.com',
+    apiKey: 'AIzaSyCM3PA0tGgBvUdEjUcYQsr1AribMH0erIs',
+    authDomain: 'microbanco-angular.firebaseapp.com',
+    messagingSenderId: '585911593359',
+  },
   production: false,
   urlBase: 'api/heroes',
   regexEmail:

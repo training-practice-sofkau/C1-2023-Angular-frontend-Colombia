@@ -1,1 +1,150 @@
-<p>transfer works!</p>
+
+
+<div class="event-schedule-area-two bg-color pad100">
+  <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-title text-center">
+              <div class="title-text mt-5">
+                  <h2>Transferencias que he hecho</h2>
+              </div>
+          </div>
+      </div>
+      <!-- row end-->
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade active show" id="home" role="tabpanel">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                      <th class="text-center" scope="col">Razon</th>
+                                      <th scope="col">Balance</th>
+                                      <th scope="col">Fecha</th>
+                                  </tr>
+                              </thead>
+                              <tbody *ngFor="let transfer of transfersOutCome">
+                                  <tr class="inner-box border-bottom-0">
+                                      <th scope="row">
+                                          <div class="event-date">
+                                              {{transfer.reason}}
+                                          </div>
+                                      </th>
+                                      <td>
+                                          <div class="event-wrap">
+                                              <div class="meta">
+                                                  {{transfer.amount | currency: 'COP': 'symbol-narrow':'.0-0'}}
+                                              </div>
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div class="r-no">
+                                              {{transfer.dateTime | dateFormat}}
+                                          </div>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+          </div>
+          <!-- /col end-->
+      </div>
+      <!-- /row end-->
+  </div>
+</div>
+
+<div class="event-schedule-area-two bg-color pad100">
+  <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-title text-center">
+              <div class="title-text mt-5">
+                  <h2>Transferencias que me han hecho</h2>
+              </div>
+          </div>
+      </div>
+      <!-- row end-->
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade active show" id="home" role="tabpanel">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                      <th class="text-center" scope="col">Razon</th>
+                                      <th scope="col">Balance</th>
+                                      <th scope="col">Fecha</th>
+                                  </tr>
+                              </thead>
+                              <tbody *ngFor="let transfer of transfersInCome">
+                                  <tr class="inner-box border-bottom-0">
+                                      <th scope="row">
+                                          <div class="event-date">
+                                              {{transfer.reason}}
+                                          </div>
+                                      </th>
+                                      <td>
+                                          <div class="event-wrap">
+                                              <div class="meta">
+                                                  {{transfer.amount}}
+                                              </div>
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div class="r-no">
+                                              {{transfer.dateTime | dateFormat }}
+                                          </div>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+          </div>
+          <!-- /col end-->
+      </div>
+      <!-- /row end-->
+  </div>
+</div>
+
+<button class="btn btn-primary" 
+type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+Hacer una transferencia</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="col-md-6">
+            <label class="small mb-1" for="inputLocation">Cantidad</label>
+            <input class="form-control" [(ngModel)]="amount" type="text"
+             placeholder="Cantidad" >
+        </div>
+        <div class="col-md-6 mt-2">
+          <label class="small mb-1" for="inputLocation">Razon</label>
+          <input class="form-control" [(ngModel)]="reason" type="text"
+           placeholder="Razon" >
+      </div>
+      <div class="col-md-6 mt-2">
+        <label class="small mb-1" for="inputLocation">ID de la cuenta</label>
+        <input class="form-control" [(ngModel)]="accountIdIncome" type="text"
+         placeholder="ID de la cuenta" >
+    </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" 
+        (click)="makeTransfer()">
+          Hacer transferencia</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,10 @@
             Menu
             <i class="bi-list"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div *ngIf="authentication">
+            {{nameUser}}
+        </div>
+        <div *ngIf="!authentication" class="collapse navbar-collapse" id="navbarResponsive">
             <button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#feedbackModal"
             type="button" class="btn btn-primary" data-bs-target="#exampleModal">
                 <span class="d-flex align-items-center">

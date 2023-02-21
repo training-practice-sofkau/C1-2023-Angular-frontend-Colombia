@@ -1,16 +1,21 @@
 <p>PERFIL DEL USUARIO!</p>
+<button class="small font-italic text-muted mb-4" type="button" 
+(click)="logout()">Cerrar Sesión</button>
 
-<div class="container-xl px-4 mt-4">
+<button class="small font-italic text-muted mb-4" type="button" 
+(click)="deleteCustomer()">Eliminar mi cuenta en el banco</button>
+
+<div class="container-xl px-2 mt-4">
   <hr class="mt-0 mb-4">
   <div class="row">
-      <div class="col-xl-4">
+      <div class="col-lg-3">
           <!-- Profile picture card-->
-          <div class="card mb-4 mb-xl-0">
-              <div class="card-header" (click)="getCustomer()">Profile Picture</div>
+          <div class="card mb-2">
+              <div class="card-header" >Profile Picture</div>
               <div class="card-body text-center">
                   <!-- Profile picture image
                   img-account-profile rounded-circle mb-2-->
-                  <img class="" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                  <img class="img-fluid" [src]="photo" alt="">
                   <!-- Profile picture help block-->
                   <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                   <!-- Profile picture upload button-->
@@ -18,68 +23,182 @@
               </div>
           </div>
       </div>
-      <div class="col-xl-8">
+      <div class="col-lg-5">
           <!-- Account details card-->
           <div class="card mb-4">
-              <div class="card-header">Account Details</div>
+              <div class="card-header">Perfil</div>
               <div class="card-body">
-                  <form>
+                  <form  id="updatUser" [formGroup]="updatUser" (submit)="updateUser()">
                       <!-- Form Group (username)-->
                       <div class="mb-3">
-                          <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                          <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
-                      </div>
-                      <!-- Form Row-->
-                      <div class="row gx-3 mb-3">
-                          <!-- Form Group (first name)-->
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="inputFirstName">First name</label>
-                              <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
-                          </div>
-                          <!-- Form Group (last name)-->
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="inputLastName">Last name</label>
-                              <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
-                          </div>
+                          <label class="small mb-1" for="inputUsername">Nombre Completo</label>
+                          <input class="form-control"
+                          type="fullName" placeholder="Nombre Completo" formControlName="fullName"
+                          [value]="updatUser.get('fullName')"
+                          >
                       </div>
                       <!-- Form Row        -->
                       <div class="row gx-3 mb-3">
                           <!-- Form Group (organization name)-->
                           <div class="col-md-6">
-                              <label class="small mb-1" for="inputOrgName">Organization name</label>
-                              <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
+                            <label class="small mb-1" for="floatingPassword">Tipo de documento</label>
+                            <select formControlName="documentTypeId" [value]="updatUser.get('documentTYpe')"
+                            name="documentTypeId" class="form-select" aria-label="Default select example">
+                              <option value="52f0d46a-af27-451a-8021-9ab99e00ef1c"> 
+                                C.C </option>
+                              <option value="52f0d46a-af27-451a-8021-9ab99e00ef1c">
+                                Cédula de extranjería </option>
+                            </select> 
+                            <div *ngIf="updatUser.get('documentTypeId')?.touched && 
+                            updatUser.get('documentTypeId')?.errors?.['required']"
+                            class="alert alert-danger">Tipo de documento es requerido.</div>
                           </div>
                           <!-- Form Group (location)-->
                           <div class="col-md-6">
-                              <label class="small mb-1" for="inputLocation">Location</label>
-                              <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA">
+                              <label class="small mb-1" for="inputLocation">Documento</label>
+                              <input class="form-control" formControlName="document"
+                              type="text" placeholder="Documento" 
+                              [value]="updatUser.get('document')">
                           </div>
                       </div>
                       <!-- Form Group (email address)-->
                       <div class="mb-3">
-                          <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                          <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
+                          <label class="small mb-1" for="inputEmailAddress">Correo</label>
+                          <input class="form-control" formControlName="email"
+                          type="email" placeholder="Correo" [value]="updatUser.get('email')">
                       </div>
                       <!-- Form Row-->
                       <div class="row gx-3 mb-3">
                           <!-- Form Group (phone number)-->
                           <div class="col-md-6">
-                              <label class="small mb-1" for="inputPhone">Phone number</label>
-                              <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                              <label class="small mb-1" for="inputPhone">Telefono</label>
+                              <input class="form-control" formControlName="phone"
+                              type="tel" placeholder="Telefono" [value]="updatUser.get('phone')">
                           </div>
-                          <!-- Form Group (birthday)-->
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="inputBirthday">Birthday</label>
-                              <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
-                          </div>
-                      </div>
-                      <!-- Save changes button-->
-                      <button class="btn btn-primary" type="button">Save changes</button>
+                        </div>
+                        <!-- Form Group (birthday)-->
+                        <!--<div class="row gx-3 mb-3">-->
+                            <!-- Form Group (organization name)
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLocation">Contraseña</label>
+                                <input class="form-control" formControlName="password"
+                                type="text" placeholder="Contraseña" 
+                                [value]="updatUser.get('password')">
+                            </div>-->
+                            <!-- Form Group (location)
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLocation">Confirmar Contraseña</label>
+                                <input class="form-control" formControlName="password"
+                                type="text" placeholder="Confirmar Contraseña" 
+                                [value]="updatUser.get('password')">
+                            </div>
+                      </div>-->
+                      <!-- Save changes button
+                                          [disabled]="updatUser.invalid"
+                    -->
+                      <button class="btn btn-primary" 
+                      form="updatUser"
+                      type="submit" 
+                      >Guardar</button>
                   </form>
               </div>
           </div>
       </div>
+      <div class="col-lg-4">
+        <!-- Account details card-->
+        <div class="card mb-4">
+            <div class="card-header"></div>
+            <div class="card-body">
+              <div class="d-flex flex-row mb-3">
+                <app-button-shared (changeRouter)="changeRouterButton(['/account'])" 
+                message="Mis Cuentas"></app-button-shared>
+                <app-button-shared (changeRouter)="changeRouterButton(['/transfer'])" 
+                message="Mis Transferencias"></app-button-shared>
+                <app-button-shared (changeRouter)="changeRouterButton(['/deposit'])" 
+                message="Mis Depositos"></app-button-shared>
+              </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header"></div>
+            <div class="card-body">
+              <div class="d-flex flex-row mb-3">
+                <!--<div class="title-text mt-5">
+                    <h2>Balance</h2>
+                    <h3> {{balance}} </h3>
+                </div>-->
+                <app-balance></app-balance>
+                <div>
+                    <button class="btn btn-primary" 
+                    type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Hacer un deposito</button>
+                   </div>
+                   <div>
+                    <button class="btn btn-primary" 
+                    type="button" data-bs-toggle="modal" data-bs-target="#exampleModalWithDraw">
+                    Retirar deposito</button>
+                   </div>
+              </div>
+            </div>
+    </div>
   </div>
 </div>
-<button class="btn btn-primary btn-login text-uppercase fw-bold" 
-type="button"(click)="goTo()">Mis transferencias</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" 
+aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation">Retirar deposito</label>
+                <input class="form-control" [(ngModel)]="amount"
+                type="text" placeholder="Deposito" >
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" 
+          (click)="makeDeposit()">
+            Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalWithDraw" tabindex="-1" aria-labelledby="exampleModalLabel"
+   aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation">Deposito</label>
+                <input class="form-control" [(ngModel)]="withdrawBalance"
+                type="text" placeholder="Deposito" >
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" 
+          (click)="withdrawDeposit()">
+            Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

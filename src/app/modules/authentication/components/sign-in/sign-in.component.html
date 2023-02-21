@@ -25,30 +25,30 @@ aria-hidden="true">
             user.get('password')?.errors?.['required']"
             class="alert alert-danger">Este campo es requerido.</div>
           </div>
-
-          <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-            <label class="form-check-label" for="rememberPasswordCheck">
-              Remember password
-            </label>
+          <div>
+            <div *ngIf="!userExist"
+            class="alert alert-danger">Correo o Contraseña invalidos</div>
           </div>
           <div class="d-grid">
             <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
-            form="user" [disabled]="user.invalid" data-bs-dismiss="modal">Sign in</button>
+            form="user" [disabled]="user.invalid" 
+            data-bs-dismiss="modal">
+            Sign in</button>
           </div>
         </form>
+        <button type="button" (click)="auth()"
+        data-bs-dismiss="modal" form="user">Google</button>
       </div>
       <div>
         <span>¿Aun no tienes cuenta?</span>
         <a class="btn btn-primary" [routerLink]="routeLogIn">Registrarte</a>
       </div>
-      
     </div>
   </div>
 </div>
 
 
-<!--<form>
+<!-- [attr.data-bs-dismiss]="!userExist ? 'modal' : null"<form>
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Email address</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">

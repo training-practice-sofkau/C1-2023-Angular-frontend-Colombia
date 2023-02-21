@@ -1,7 +1,32 @@
 export interface TransferModel {
-  outcome: string,
-  income: string,
+  id: string,
   amount: number,
-  reason: "pagos pendientes",
-  dateTime: 1640995200000
+  dateTime: number,
+  reason: string,
+  income: {
+    id: string,
+    state: boolean,
+    balance: number,
+    customer: {
+      state: boolean,
+      id: string
+    },
+    accountType: {
+      id: string,
+      state: boolean
+    }
+  },
+  outcome: {
+    id: string,
+    state: boolean,
+    balance: number,
+    customer: {
+      state: boolean,
+      id: string
+      },
+      accountType: {
+        id: string,
+        state: boolean
+      }
+  }
 }

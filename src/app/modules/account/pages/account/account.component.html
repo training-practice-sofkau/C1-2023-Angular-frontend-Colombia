@@ -1,0 +1,61 @@
+
+
+<div class="event-schedule-area-two bg-color pad100">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title text-center">
+                <div class="title-text mt-5">
+                    <h2>Cuentas</h2>
+                </div>
+            </div>
+        </div>
+        <!-- row end-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade active show" id="home" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" scope="col">Estado</th>
+                                        <th scope="col">Balance</th>
+                                        <th scope="col">Tipo de cuenta</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let account of accounts">
+                                    <tr class="inner-box border-bottom-0">
+                                        <th scope="row">
+                                            <div class="event-date">
+                                                {{account.state}}
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <div class="event-wrap">
+                                                <div class="meta">
+                                                    {{account.balance}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="r-no">
+                                                {{account.accountType.id}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                          <button type="button" class="btn btn-danger">
+                                            Eliminar
+                                          </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+            <!-- /col end-->
+        </div>
+        <!-- /row end-->
+    </div>
+</div>

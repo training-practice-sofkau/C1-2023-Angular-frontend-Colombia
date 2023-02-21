@@ -2,6 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { LandingPgeComponent } from './pages/landing-pge/landing-pge.component';
+import {
+  AngularFireAuthGuard,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo
+} from '@angular/fire/compat/auth-guard';
+import { UserProfileComponent } from '../user/pages/user-profile/user-profile.component';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['p']);
+//const redirectLoggedInToDashboard = () => redirectLoggedInTo(['']);  
 
 const routes: Routes = [
   {
@@ -11,7 +20,15 @@ const routes: Routes = [
       {
         path: '',
         component: LandingPgeComponent,
+        //canActivate: [AngularFireAuthGuard],
+        //data: { authGuardPipe: redirectUnauthorizedToLogin }
       },
+      /*{
+        path: 'p',
+        component: UserProfileComponent,
+        canActivate: [AngularFireAuthGuard],
+        data: { authGuardPipe: redirectLoggedInToDashboard }
+  }*/
     ],
   },
 ];

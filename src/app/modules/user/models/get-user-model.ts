@@ -9,5 +9,6 @@ export interface getUserModel {
   fullName: string,
   email: string,
   phone: string,
-  password: string
+  password: string,
+  avatarUrl: string
 }

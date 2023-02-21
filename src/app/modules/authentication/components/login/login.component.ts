@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { NewUserModel } from '../../models/new-user.model';
-import { UserService } from '../../services/user/user.service';
+import { UserService } from '../../../user/services/user-profile/user.service';
 import { MustMatch } from './help-must-match';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth/auth.service';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,7 @@ export class LoginComponent {
   submitted = false;
 file: any;
 
-  constructor(private readonly user$: UserService) {
+  constructor(private readonly user$: UserService, private readonly authService: AuthService) {
     this.newUser = new FormGroup({
       documentTypeId: new FormControl('', [Validators.required]),            
       document: new FormControl('', [
@@ -67,19 +69,24 @@ file: any;
     
   }
 
+  auth(): void {
+    this.authService.GoogleAuth()
+ }
+
 onSubmit() {
 
    if (this.newUser.invalid) {
         return;
     }
       const user = {
+        id: uuid(),
         fullName: this.newUser.get('fullName')?.value,
         email: this.newUser.get('email')?.value,
         phone: this.newUser.get('phone')?.value,
         document: this.newUser.get('document')?.value,
         documentTypeId: this.newUser.get('documentTypeId')?.value,
         password: this.newUser.get('password')?.value,
-        avatar: this.newUser.get('avatar')?.value
+        avatarUrl: this.newUser.get('avatar')?.value
       }
    
   console.log('user ', this.newUser.value)
@@ -127,3 +134,6 @@ get f(): { [key: string]: AbstractControl; }
 }
 
 }
+
+
+
